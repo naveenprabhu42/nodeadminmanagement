@@ -8,6 +8,9 @@ var http = require('http');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// var adminRouter = require('./routes/admin');
+var superadminRouter = require('./routes/superadmin');
+
 const port = process.env.PORT;
 const mysql = require("mysql");
 const mysqlConnection = require("./models/db");
@@ -32,6 +35,8 @@ app.set('port', port);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+// app.use('/admin',adminRouter);
+app.use('/admin',superadminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -51,7 +56,6 @@ app.use(function(err, req, res, next) {
 var server;
 if (process.env.NODE_ENV == 'development') {
   var server = http.createServer(app);
-  console.log(server,"server")
   server.listen(port, () => {
     console.log('HTTP Server running on port ' + port);
   });
